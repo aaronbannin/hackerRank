@@ -1,44 +1,13 @@
-from Solution import Node, WordMap, Solution
+from Solution import Solution
 
-# l = [
-#     "hello"
-#     ,"cat"
-#     ,"eat"
-#     ,"fish"
-#     ,"cow"
-#     ,"car"
-#     ,"mat"
-#     ,"tab"
-# ]
-
-# word_map = WordMap(l)
-# print(word_map.dump())
-
-
-audit = [
-    "hello"
-    ,"cat"
-    ,"eat"
-    ,"fish"
-    ,"cow"
-    ,"car"
-    ,"haloween"
-    ,"ramen"
-    ,"3"
-    ,"mat"
-    ,"tab"
-]
-
-input_matrix = [
+# scenario generation
+m1 = [
     ["c", "a", "r"]
     ,["b", "a", "m"]
     ,["n", "s", "t"]
 ]
 
-
-# Solution(input_matrix, l)
-
-m = [
+m2 = [
     ["c", "a", "r", "t"]
     ,["b", "a", "m", "e"]
     ,["n", "s", "t", "y"]
@@ -56,4 +25,5 @@ l = [
     ,"nut"
 ]
 
-Solution(m, l)
+# execute
+Solution(m2, l)
