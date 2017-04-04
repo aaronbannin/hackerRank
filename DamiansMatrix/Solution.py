@@ -60,11 +60,11 @@ class WordMap(object):
             print_children(letter, child, letter)
 
     def add_word(self, word):
-        # print('add_word begin word={}'.format(word))
+        print('add_word begin word={}'.format(word))
         index = 0
         current_children = self.head
         for index in range(len(word)):
-            # print('letter loop begin letter={}'.format(letter))
+            print('letter loop begin letter={}'.format(word[index]))
             letter = word[index]
             if letter not in current_children:
                 new_node = Node(letter)
@@ -73,7 +73,10 @@ class WordMap(object):
                 if index is len(word)-1:
                     new_node.word = word
             else:
+                if index is len(word)-1:
+                    current_children[letter].word = word
                 current_children = current_children[letter].children
+
 
     def does_word_exist(self, word):
         # (String) -> Bool
@@ -116,7 +119,7 @@ class LetterMatrix(object):
     def _generate_coordinate_values(self, input_value):
         return [x for x in range(input_value-1, input_value+2) if x >= 0 and x < self.max_coordinate]
 
-    def walk(self, word_map, x, y, word='', indicies_visited=[], next_node=None):
+    def walk(self, word_map, x, y, word='', indicies_visited=set(), next_node=None):
         # letter = self.current_letter()
         letter = self.matrix[y][x]
         print('walk begin word={} letter={} indicies_visited={}'.format(word, letter, indicies_visited))
@@ -126,8 +129,8 @@ class LetterMatrix(object):
             return
         else:
             # indicies_visited.append((x, y))
-            updated_path = list(indicies_visited)
-            updated_path.append((x, y))
+            updated_path = set(indicies_visited)
+            updated_path.add((x, y))
         try:
 
             next_node = word_map.verify_step(letter, next_node)
@@ -167,8 +170,8 @@ class LetterMatrix(object):
 def Solution(input_matrix, list_of_words):
     word_map = WordMap(list_of_words)
     letter_matrix = LetterMatrix(input_matrix)
-    print('dump word_map')
-    print(word_map.dump())
+    # print('dump word_map')
+    # print(word_map.dump())
 
     for x in range(len(input_matrix)):
         for y in range(len(input_matrix)):
