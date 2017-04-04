@@ -60,11 +60,11 @@ class WordMap(object):
             print_children(letter, child, letter)
 
     def add_word(self, word):
-        print('add_word begin word={}'.format(word))
+        # print('add_word begin word={}'.format(word))
         index = 0
         current_children = self.head
         for index in range(len(word)):
-            print('letter loop begin letter={}'.format(word[index]))
+            # print('letter loop begin letter={}'.format(word[index]))
             letter = word[index]
             if letter not in current_children:
                 new_node = Node(letter)
@@ -98,7 +98,6 @@ class WordMap(object):
             return node.children[letter]
 
 
-
 class LetterMatrix(object):
     def __init__(self, matrix):
         # takes in a 2-dimensional array representing an NxN matrix
@@ -122,46 +121,32 @@ class LetterMatrix(object):
     def walk(self, word_map, x, y, word='', indicies_visited=set(), next_node=None):
         # letter = self.current_letter()
         letter = self.matrix[y][x]
-        print('walk begin word={} letter={} indicies_visited={}'.format(word, letter, indicies_visited))
+        # print('walk begin word={} letter={} indicies_visited={}'.format(word, letter, indicies_visited))
 
-        if (x, y) in indicies_visited:
-            print('Already visited index={}'.format((x, y)))
-            return
-        else:
-            # indicies_visited.append((x, y))
-            updated_path = set(indicies_visited)
-            updated_path.add((x, y))
+        # if (x, y) in indicies_visited:
+        #     # print('Already visited index={}'.format((x, y)))
+        #     return
+        # else:
+        updated_path = set(indicies_visited)
+        updated_path.add((x, y))
         try:
-
             next_node = word_map.verify_step(letter, next_node)
             # print('next_node={}'.format(next_node))
             word += letter
             if len(next_node.children) is 0 or next_node.word is not "":
-                print('word={} found!'.format(word))
+                # print('word={} found!'.format(word))
                 self.found_words.add(word)
                 # return
 
             next_moves = self._get_next_moves(x, y, updated_path)
-            print('walk found letter, word is now={} next_moves={} path={}'.format(word, next_moves, updated_path))
+            # print('walk found letter, word is now={} next_moves={} path={}'.format(word, next_moves, updated_path))
             for move in next_moves:
                 new_x, new_y = move
                 # print('x={} y={}'.format(new_x, new_y))
                 self.walk(word_map, new_x, new_y, word, updated_path, next_node)
-            # return
         except:
-            print('cannot complete word letter={} x={} y={}'.format(letter, x, y))
+            # print('cannot complete word letter={} x={} y={}'.format(letter, x, y))
             return
-
-    # def walk_frontier(self, word_map, word, next_node=None):
-    #     while self.frontier:
-    #         coordinate = self.frontier.pop()
-    #         letter = self.matrix[y][x]
-    #         try:
-    #             next_node = word_map.verify_step(letter, node=next_node
-    #             word += letter
-
-
-
 
     def current_letter(self):
         return self.matrix[self.y][self.x]
@@ -175,7 +160,7 @@ def Solution(input_matrix, list_of_words):
 
     for x in range(len(input_matrix)):
         for y in range(len(input_matrix)):
-            print('begin walk x={} y={}'.format(x, y))
+            # print('begin walk x={} y={}'.format(x, y))
             letter_matrix.walk(word_map, x, y)
 
     print(letter_matrix.found_words)
