@@ -46,12 +46,13 @@ m = [
 ]
 
 l = [
-    "cart"
-    ,"rmtw"
+    # "cart"
+    # ,"rmtw"
     # ,"cat"
     # ,"came"
     # ,"cbn"
-    # ,"car"
+    "car"
+    ,"cart"
 ]
 
 Solution(m, l)

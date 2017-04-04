@@ -106,12 +106,12 @@ class LetterMatrix(object):
         self.found_words = set()
         self.frontier = []
 
-    def _get_next_moves(self, x, y):
+    def _get_next_moves(self, x, y, indicies_visited):
         #() -> [(int, int)]
         # repeated code here, surely there is a more elegant way to write these functions
         array_of_x = self._generate_coordinate_values(x)
         array_of_y = self._generate_coordinate_values(y)
-        return [(x, y) for x in array_of_x for y in array_of_y]
+        return [(x, y) for x in array_of_x for y in array_of_y if (x, y) not in indicies_visited]
 
     def _generate_coordinate_values(self, input_value):
         return [x for x in range(input_value-1, input_value+2) if x >= 0 and x < self.max_coordinate]
@@ -121,13 +121,15 @@ class LetterMatrix(object):
         letter = self.matrix[y][x]
         print('walk begin word={} letter={} indicies_visited={}'.format(word, letter, indicies_visited))
 
-        # if (x, y) in indicies_visited:
-        #     print('Already visited index={}'.format((x, y)))
-        #     return
-        # else:
-        #     indicies_visited.append((x, y))
-        try:
+        if (x, y) in indicies_visited:
+            print('Already visited index={}'.format((x, y)))
+            return
+        else:
             # indicies_visited.append((x, y))
+            updated_path = list(indicies_visited)
+            updated_path.append((x, y))
+        try:
+
             next_node = word_map.verify_step(letter, next_node)
             # print('next_node={}'.format(next_node))
             word += letter
@@ -136,12 +138,12 @@ class LetterMatrix(object):
                 self.found_words.add(word)
                 # return
 
-            next_moves = self._get_next_moves(x, y)
-            # print('walk found letter, word is now={} next_moves={}'.format(word, next_moves))
+            next_moves = self._get_next_moves(x, y, updated_path)
+            print('walk found letter, word is now={} next_moves={} path={}'.format(word, next_moves, updated_path))
             for move in next_moves:
                 new_x, new_y = move
                 # print('x={} y={}'.format(new_x, new_y))
-                self.walk(word_map, new_x, new_y, word, indicies_visited, next_node)
+                self.walk(word_map, new_x, new_y, word, updated_path, next_node)
             # return
         except:
             print('cannot complete word letter={} x={} y={}'.format(letter, x, y))
@@ -165,8 +167,8 @@ class LetterMatrix(object):
 def Solution(input_matrix, list_of_words):
     word_map = WordMap(list_of_words)
     letter_matrix = LetterMatrix(input_matrix)
-    # print('dump word_map')
-    # print(word_map.dump())
+    print('dump word_map')
+    print(word_map.dump())
 
     for x in range(len(input_matrix)):
         for y in range(len(input_matrix)):
