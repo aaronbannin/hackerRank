@@ -102,11 +102,8 @@ class LetterMatrix(object):
     def __init__(self, matrix):
         # takes in a 2-dimensional array representing an NxN matrix
         self.matrix = matrix
-        self.x = 0
-        self.y = 0
         self.max_coordinate = len(self.matrix)
         self.found_words = set()
-        self.frontier = []
 
     def _get_next_moves(self, x, y, indicies_visited):
         #() -> [(int, int)]
@@ -123,10 +120,6 @@ class LetterMatrix(object):
         letter = self.matrix[y][x]
         # print('walk begin word={} letter={} indicies_visited={}'.format(word, letter, indicies_visited))
 
-        # if (x, y) in indicies_visited:
-        #     # print('Already visited index={}'.format((x, y)))
-        #     return
-        # else:
         updated_path = set(indicies_visited)
         updated_path.add((x, y))
         try:
@@ -147,9 +140,6 @@ class LetterMatrix(object):
         except:
             # print('cannot complete word letter={} x={} y={}'.format(letter, x, y))
             return
-
-    def current_letter(self):
-        return self.matrix[self.y][self.x]
 
 
 def Solution(input_matrix, list_of_words):
