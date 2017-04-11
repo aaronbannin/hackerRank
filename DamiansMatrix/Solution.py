@@ -95,6 +95,7 @@ class WordMap(object):
         if node is None:
             return self.head[letter]
         else:
+            # this will raise if letter does not exist
             return node.children[letter]
 
 

@@ -33,8 +33,6 @@ static Node Insert(Node root,int value)
            }
        }
    }
-
-   return root;
 }
 
 
